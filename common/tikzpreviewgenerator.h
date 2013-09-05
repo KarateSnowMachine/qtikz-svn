@@ -119,6 +119,8 @@ protected:
 	QString m_pdftopsCommand;
 	QString m_shortLogText;
 	QString m_logText;
+	QRegExp m_beginTikzPictureRegex;
+
 	bool m_useShellEscaping;
 
 	QProcess *m_checkGnuplotExecutable;

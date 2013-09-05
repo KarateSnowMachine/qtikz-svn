@@ -35,7 +35,8 @@
 #include "tikzpreviewcontroller.h"
 #include "utils/file.h"
 
-TikzPreviewGenerator::TikzPreviewGenerator(TikzPreviewController *parent)
+TikzPreviewGenerator::TikzPreviewGenerator(TikzPreviewController *parent) :
+	m_beginTikzPictureRegex("begin[{]tikzpicture[}]")
 {
 	qRegisterMetaType<TemplateStatus>("TemplateStatus"); // needed for Q_ARG below
 
@@ -276,6 +277,7 @@ void TikzPreviewGenerator::createPreview()
 	if (!createTempTikzFile())
 		return;
 
+	fflush(stdout);
 	m_logText = "";
 	if (generatePdfFile())
 	{
@@ -337,6 +339,9 @@ void TikzPreviewGenerator::generatePreviewImpl(TemplateStatus templateStatus)
 	else
 		m_templateChanged = (templateStatus == ReloadTemplate);
 	m_tikzCode = m_parent->tikzCode();
+	int startOfTikzPictureIndex = m_tikzCode.indexOf(m_beginTikzPictureRegex);
+	printf("start index of tikzpicture is %d\n", startOfTikzPictureIndex); 
+	m_tikzCode = m_tikzCode.mid(startOfTikzPictureIndex-1);
 	m_runFailed = false;
 	m_memberLock.unlock();
 	createPreview();
