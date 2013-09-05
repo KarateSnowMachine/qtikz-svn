@@ -51,7 +51,7 @@ QString FileDialog::getParsedFilter(const QString &filter)
 			if (i > 0)
 				parsedFilter += ";;";
 			if (mimeTypeList.at(i) == "text/x-pgf")
-				parsedFilter += tr("PGF document", "filter") + " (*.pgf *.tikz)";
+				parsedFilter += tr("PGF document", "filter") + " (*.pgf *.tikz *.tex)";
 			else if (mimeTypeList.at(i) == "image/x-eps")
 				parsedFilter += tr("EPS image", "filter") + " (*.eps)";
 			else if (mimeTypeList.at(i) == "application/pdf")
